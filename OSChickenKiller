@@ -1,0 +1,28 @@
+import org.powerbot.script.Script;
+import org.powerbot.script.PollingScript;
+import org.powerbot.script.rt4.ClientContext;
+import org.powerbot.script.rt4.Npc;
+import org.powerbot.script.rt4.Players;
+
+@Script.Manifest(description = "Kills chickens or seagulls.", name = "OSChickenKiller")
+public class OSChickenKiller extends PollingScript<ClientContext> {
+
+	@Override
+	public void start() {
+		System.out.println("OSChickenKiller has started!");
+	}
+	
+	@Override
+	public void poll() {
+		Npc chicken = ctx.npcs.select().name("Chicken").nearest().poll();
+			if(!chicken.inCombat()) {
+				chicken.interact("Attack");
+			}
+	}
+	
+	@Override
+	public void stop() {
+		System.out.println("OSChickenKiller has been stopped.");
+	}
+
+}
